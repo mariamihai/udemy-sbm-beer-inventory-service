@@ -1,4 +1,4 @@
-package guru.springframework.sbmbeerinventoryservice.services.inventory;
+package guru.springframework.sbmbeerinventoryservice.services;
 
 import guru.springframework.sbmbeerinventoryservice.config.JmsConfig;
 import guru.springframework.sbmbeerinventoryservice.domain.BeerInventory;
@@ -7,7 +7,6 @@ import guru.springframework.sbmbeerinventoryservice.repositories.BeerInventoryRe
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class NewInventoryListener {
 
     private final BeerInventoryRepository beerInventoryRepository;
-    private final JmsTemplate jmsTemplate;
 
     @Transactional
     @JmsListener(destination = JmsConfig.NEW_INVENTORY_QUEUE)

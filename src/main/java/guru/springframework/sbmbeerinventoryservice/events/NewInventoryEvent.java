@@ -1,6 +1,6 @@
 package guru.springframework.sbmbeerinventoryservice.events;
 
-import guru.springframework.sbmbeerinventoryservice.web.model.BeerDto;
+import guru.springframework.sbmbeerinventoryservice.web.model.events.BeerDto;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

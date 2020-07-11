@@ -1,4 +1,4 @@
-package guru.springframework.sbmbeerinventoryservice.web.model;
+package guru.springframework.sbmbeerinventoryservice.web.model.events;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
