@@ -3,6 +3,7 @@ package guru.springframework.sbmbeerinventoryservice.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.springframework.sbmbeerinventoryservice.events.NewInventoryEvent;
 import guru.springframework.sbmbeerinventoryservice.web.model.events.AllocateBeerOrderRequest;
+import guru.springframework.sbmbeerinventoryservice.web.model.events.DeallocateBeerOrderRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
@@ -18,6 +19,7 @@ public class JmsConfig {
     public static final String NEW_INVENTORY_QUEUE = "new-inventory";
     public static final String ALLOCATE_ORDER_QUEUE = "allocate-order";
     public static final String ALLOCATE_ORDER_RESPONSE_QUEUE = "allocate-order-response";
+    public static final String DEALLOCATE_ORDER_QUEUE = "de-allocate-order";
 
     @Bean
     public MessageConverter messageConverter(ObjectMapper objectMapper) {
@@ -33,8 +35,10 @@ public class JmsConfig {
 
     private Map<String,Class<?>> setClassMappings() {
         Map<String,Class<?>> typeIdMappings = new HashMap<>();
+
         typeIdMappings.put(NewInventoryEvent.class.getSimpleName(), NewInventoryEvent.class);
         typeIdMappings.put(AllocateBeerOrderRequest.class.getSimpleName(), AllocateBeerOrderRequest.class);
+        typeIdMappings.put(DeallocateBeerOrderRequest.class.getSimpleName(), DeallocateBeerOrderRequest.class);
 
         return typeIdMappings;
     }
