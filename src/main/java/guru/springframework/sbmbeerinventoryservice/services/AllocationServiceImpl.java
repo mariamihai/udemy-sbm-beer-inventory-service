@@ -54,9 +54,9 @@ public class AllocationServiceImpl implements AllocationService {
                 beerInventoryRepository.save(beerInventory);
             } else if (inventory > 0) { // Partial allocation
                 line.setQuantityAllocated(allocatedQuantity + inventory);
-
-                beerInventoryRepository.delete(beerInventory);
             }
+
+            deleteInventoryIfEmpty(beerInventory);
         });
     }
 
@@ -70,5 +70,11 @@ public class AllocationServiceImpl implements AllocationService {
 
     private boolean needsToAllocateBeer(BeerOrderLineDto line) {
         return getOrderQuantity(line) - getQuantityAllocated(line) > 0;
+    }
+
+    private void deleteInventoryIfEmpty(BeerInventory beerInventory) {
+        if(beerInventory.getQuantityOnHand() == 0) {
+            beerInventoryRepository.delete(beerInventory);
+        }
     }
 }
