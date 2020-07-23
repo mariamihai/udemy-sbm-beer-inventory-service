@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -17,10 +16,9 @@ public class NewInventoryListener {
 
     private final BeerInventoryRepository beerInventoryRepository;
 
-    @Transactional
     @JmsListener(destination = JmsConfig.NEW_INVENTORY_QUEUE)
     public void listen(NewInventoryEvent event) {
-        log.debug("Getting request for a new inventory - " + event);
+        log.debug("Getting request for a new inventory for beer " + event.getBeerDto().getId());
 
         BeerInventory newBeerInventory = BeerInventory.builder()
                 .beerId(event.getBeerDto().getId())
@@ -28,5 +26,7 @@ public class NewInventoryListener {
                 .quantityOnHand(event.getBeerDto().getQuantityOnHand())
                 .build();
         beerInventoryRepository.save(newBeerInventory);
+
+        log.debug("Saved new inventory for beer " + event.getBeerDto().getId());
     }
 }
