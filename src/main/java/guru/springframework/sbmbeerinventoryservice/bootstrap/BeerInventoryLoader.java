@@ -5,13 +5,12 @@ import guru.springframework.sbmbeerinventoryservice.repositories.BeerInventoryRe
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
-@Component
+//@Component
 public class BeerInventoryLoader implements CommandLineRunner {
 
     private static final String BEER_1_UPC = "0631234200036";
