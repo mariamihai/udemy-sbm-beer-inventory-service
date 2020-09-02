@@ -1,27 +1,47 @@
-CircleCI [![CircleCI](https://circleci.com/gh/mariamihai/udemy-sbm-beer-inventory-service.svg?style=svg)](https://circleci.com/gh/mariamihai/udemy-sbm-beer-inventory-service)
-
-Docker [![Docker](https://img.shields.io/docker/v/mariamihai/sbm-beer-inventory-service?sort=semver)](https://img.shields.io/docker/v/mariamihai/sbm-beer-inventory-service?sort=semver)
+[![CircleCI](https://circleci.com/gh/mariamihai/udemy-sbm-beer-inventory-service.svg?style=svg)](https://circleci.com/gh/mariamihai/udemy-sbm-beer-inventory-service)
+[![Docker](https://img.shields.io/docker/v/mariamihai/sbm-beer-inventory-service?sort=date)](https://hub.docker.com/r/mariamihai/sbm-beer-inventory-service)
 
 # SBM Beer Inventory Service
 Spring Boot Microservice project
 
+  - [Description](#description)
+  - [API version](#api-version)
+  - [Docker images](#docker-images)
+  - [Implementation details](#implementation-details)
+    - [Properties](#properties)
+    - [API calls](#api-calls)
+      - [Get existing inventory for a specific beer](#get-existing-inventory-for-a-specific-beer)
+      - [Get all existing inventory](#get-all-existing-inventory)
+
 ## Description
-The current project encapsulates the beer inventory part of initial [monolith brewery project](https://github.com/mariamihai/udemy-sbm-brewery-monolith).
-The initial project was split in 3 microservices:
-* [SBM (Spring Boot Microservices) Beer Service](https://github.com/mariamihai/udemy-sbm-beer-service)
-* [SBM (Spring Boot Microservices) Beer Order Service](https://github.com/mariamihai/udemy-sbm-beer-order-service)
-* SBM (Spring Boot Microservices) Beer Inventory Service [current project]
+The current project is part of the "Spring Boot Microservices with Spring Cloud" [Udemy course](https://www.udemy.com/course/spring-boot-microservices-with-spring-cloud-beginner-to-guru/). 
 
-Overview of the project [here](https://github.com/mariamihai/udemy-sbm-overview).
+The project adds to the inventory the beers brewed by the [Beer Service](https://github.com/mariamihai/udemy-sbm-beer-service) 
+and validates the allocation of inventory to an order created by the [Beer Order Service](https://github.com/mariamihai/udemy-sbm-beer-order-service) 
+It removes the allocated inventory and inserts back inventory from cancelled orders.
 
-## API Version
-Currently the application is at _v1_.
+An overview of all the projects involved can be found [here](https://github.com/mariamihai/udemy-sbm-overview).
 
-## Implementation Details
+## API version
+_V1_ is the current implementation. No changes to the project are expected to be made in the future that will affect 
+the existing endpoints.
+
+## Docker images
+Automatic building was not implemented for this project. The `latest` tag contains the best implementation considered 
+appropriate to be used.
+
+For automatic building of Docker images check the next projects:
+- for [CircleCI](https://github.com/mariamihai/CIToDockerExampleProject)
+- for [TravisCI](https://github.com/mariamihai/sma-overview) (all projects implemented under the "Spring Microservices in Action" book)
+
+## Implementation details
 ### Properties
+- the name of the application, used by Eureka and the other services 
 ```
 spring.application.name=beer-inventory-service
-
+```
+- application server port
+```
 server.port=8082
 ```
 
