@@ -1,6 +1,6 @@
 CircleCI [![CircleCI](https://circleci.com/gh/mariamihai/udemy-sbm-beer-inventory-service.svg?style=svg)](https://circleci.com/gh/mariamihai/udemy-sbm-beer-inventory-service)
 
-Docker [![Docker](https://img.shields.io/docker/v/mariamihai/sbm-beer-inventory-failover?sort=semver)](https://img.shields.io/docker/v/mariamihai/sbm-beer-inventory-failover?sort=semver)
+Docker [![Docker](https://img.shields.io/docker/v/mariamihai/sbm-beer-inventory-service?sort=semver)](https://img.shields.io/docker/v/mariamihai/sbm-beer-inventory-service?sort=semver)
 
 # SBM Beer Inventory Service
 Spring Boot Microservice project
