@@ -61,7 +61,15 @@ server.port=8082
     * Content: (TODO - response will be added)
     
        ``` 
-       
+       [
+           {
+               "id": "53c1ba86-aefa-41a3-aa3d-e8924e57e782",
+               "createdDate": "2020-09-03T12:20:47.316Z",
+               "lastModifiedDate": "2020-09-03T12:39:08.187Z",
+               "beerId": "357d11d2-ab0d-4bff-bfc2-05601afd0c6e",
+               "quantityOnHand": 115
+           }
+       ]
        ```
 
 #### Get all existing inventory
@@ -75,8 +83,30 @@ server.port=8082
     
  * __Success response:__
     * Code: 200 <br/>
-    * Content: (TODO - response will be added)
+    * Content:
     
        ``` 
-       
+       [
+           {
+               "id": "53c1ba86-aefa-41a3-aa3d-e8924e57e782",
+               "createdDate": "2020-09-03T12:20:47.316Z",
+               "lastModifiedDate": "2020-09-03T12:37:56.185Z",
+               "beerId": "357d11d2-ab0d-4bff-bfc2-05601afd0c6e",
+               "quantityOnHand": 117
+           },
+           {
+               "id": "7ca0a891-1051-46c6-b6e1-985a39f950b6",
+               "createdDate": "2020-09-03T12:20:47.447Z",
+               "lastModifiedDate": "2020-09-03T12:38:20.135Z",
+               "beerId": "94d47759-9e0f-4ed5-bf75-caeda6206da5",
+               "quantityOnHand": 122
+           },
+           {
+               "id": "d580c531-fd5c-46f1-b206-6e4ffb8931f9",
+               "createdDate": "2020-09-03T12:20:42.894Z",
+               "lastModifiedDate": "2020-09-03T12:38:08.145Z",
+               "beerId": "f5d5fa59-26f2-4c55-83df-e841c9fd9c22",
+               "quantityOnHand": 114
+           }
+       ]
        ```
