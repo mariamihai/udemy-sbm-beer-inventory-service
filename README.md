@@ -57,8 +57,8 @@ server.port=8082
     * optional: -
     
  * __Success response:__
-    * Code: 200 <br/>
-    * Content: (TODO - response will be added)
+    * Code: 200 OK <br/>
+    * Content:
     
        ``` 
        [
@@ -82,7 +82,7 @@ server.port=8082
     * optional: -
     
  * __Success response:__
-    * Code: 200 <br/>
+    * Code: 200 OK <br/>
     * Content:
     
        ``` 
