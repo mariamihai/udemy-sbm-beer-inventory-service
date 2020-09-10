@@ -9,9 +9,15 @@ Spring Boot Microservice project
   - [Docker images](#docker-images)
   - [Implementation details](#implementation-details)
     - [Properties](#properties)
-    - [API calls](#api-calls)
-      - [Get existing inventory for a specific beer](#get-existing-inventory-for-a-specific-beer)
-      - [Get all existing inventory](#get-all-existing-inventory)
+    - [Security](#security)
+    - [Profiles](#profiles)
+    - [Additional applications needed](#additional-applications-needed)
+      - [MySQL](#mysql)
+      - [JMS with ActiveMQ Artemis](#jms-with-activemq-artemis)
+      - [Distributed Tracing with Spring Cloud Sleuth and Zipkin](#distributed-tracing-with-spring-cloud-sleuth-and-zipkin)
+  - [API calls](#api-calls)
+    - [Get existing inventory for a specific beer](#get-existing-inventory-for-a-specific-beer)
+    - [Get all existing inventory](#get-all-existing-inventory)
 
 ## Description
 The current project is part of the "Spring Boot Microservices with Spring Cloud" [Udemy course](https://www.udemy.com/course/spring-boot-microservices-with-spring-cloud-beginner-to-guru/). 
@@ -40,13 +46,71 @@ For automatic building of Docker images check the next projects:
 ```
 spring.application.name=beer-inventory-service
 ```
+
 - application server port
 ```
 server.port=8082
 ```
 
-### API calls
-#### Get existing inventory for a specific beer
+### Security
+I am using Basic Auth to secure the current project. For better implementations of securing an application, check 
+[this](https://github.com/mariamihai/spring-security-amigoscode-tutorial) project.
+```
+spring.security.user.name=inv
+spring.security.user.password=invPass
+```
+
+### Profiles
+Active profiles: `local`, `local-discovery`.
+
+(The `localmysql` profile was used for the local MySQL connection when starting to develop the services and breaking 
+the monolith, the `local` profile is obtained from the Config Service and it is used currently.)
+
+### Additional applications needed
+#### MySQL
+When running locally, I am using a Docker container for the MySQL databases. Check the Docker Hub [MySQL page](https://hub.docker.com/_/mysql).
+
+Creating the container:
+```
+docker run -p 3306:3306 --name beer-mysql -e MYSQL_ROOT_PASSWORD=root_pass -d mysql:8
+```
+
+The initial script for the project's database is under `src/main/scripts/mysql-init.sql` file.
+
+| Property | Value | 
+| --------| -----|
+| database name | beersinventoryervice |
+| port | 3306 (default) |
+| username | beer_inventory_service |
+| password | password | 
+
+#### JMS with ActiveMQ Artemis
+JMS is used for communication with the Beer Service and Beer Order Service.
+
+Creating the container:
+```
+docker run -it --rm -p 8161:8161 -p 61616:61616 vromero/activemq-artemis
+```
+
+The queues related to the current project are:
+- `new-inventory` - obtain update with the newly brewed beers from the Beer Service
+- `allocate-order` - validates the allocation of an order received from the Beer Order Service
+- `allocate-order-response` - sends the result of the allocation to the Beer Order Service
+- `de-allocate-order` - receives a deallocation request from the Beer Order Service if the order was invalidated
+
+| Property | Value | 
+| --------| -----|
+| username | artemis |
+| password | simetraehcapa | 
+
+#### Distributed Tracing with Spring Cloud Sleuth and Zipkin
+Creating the Zipkin container:
+```
+docker run --name zipkin -p 9411:9411 openzipkin/zipkin
+```
+
+## API calls
+### Get existing inventory for a specific beer
 * __URI:__ _/api/v1/beer/:beerId/inventory_
 
  * __Method:__ _GET_
@@ -72,7 +136,7 @@ server.port=8082
        ]
        ```
 
-#### Get all existing inventory
+### Get all existing inventory
 * __URI:__ _/api/v1/allinventory_
 
  * __Method:__ _GET_
